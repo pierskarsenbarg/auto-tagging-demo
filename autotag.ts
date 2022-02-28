@@ -8,6 +8,7 @@ import { isTaggable } from "./taggable";
 export function registerAutoTags(autoTags: Record<string, string>): void {
     pulumi.runtime.registerStackTransformation((args) => {
         if (isTaggable(args.type)) {
+            pulumi.log.info(`Name: ${args.name}`)
             pulumi.log.info(`Type: ${args.type}`);
             args.props["tags"] = { ...args.props["tags"], ...autoTags };
             pulumi.log.info(`Tags: ${JSON.stringify(args.props["tags"])}`)
