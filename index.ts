@@ -1,4 +1,6 @@
 import * as awsx from "@pulumi/awsx";
+import * as eks from "@pulumi/eks";
+import * as aws from "@pulumi/aws";
 
 import { registerAutoTags } from "./autotag";
 
@@ -14,3 +16,10 @@ const vpc = new awsx.ec2.Vpc("pk-vpc", {
     }],
     numberOfAvailabilityZones: 1
 });
+
+const subnet = new aws.ec2.Subnet("subnet", {
+    vpcId: vpc.id,
+    cidrBlock: "10.0.1.0/24"
+})
+
+
